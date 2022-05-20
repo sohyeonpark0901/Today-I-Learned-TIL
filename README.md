@@ -15,6 +15,6 @@
 ## Spring Batch
   * [스프링 배치 - Spring Boot 기반으로 개발하는 Spring Batch]
 ## DevOps
-1. kafka
+### kafka
   * [데브원영 - 아파치 카프카]
-2. 쿠버네티스 & 도커
+### 쿠버네티스 & 도커
