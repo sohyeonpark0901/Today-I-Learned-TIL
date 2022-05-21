@@ -1,7 +1,7 @@
 # Today-I-Learned-TIL
 회사 온라인 교육 + 개인공부 집합소
-(master 브랜치에 있어요!)
-
+(**master 브랜치에 있어요!**)
+---
 ## Java Algorithm
  * [자바(Java) 알고리즘 문제풀이 : 코딩테스트 대비]
 ## Spring Boot
@@ -14,6 +14,8 @@
 
 ## Spring Batch
   * [스프링 배치 - Spring Boot 기반으로 개발하는 Spring Batch]
+## Spring Security
+---
 ## DevOps
 ### 1. kafka
   * [데브원영 - 아파치 카프카]
