@@ -12,6 +12,7 @@
 ## 3.Spring Batch
   * [스프링 배치 - Spring Boot 기반으로 개발하는 Spring Batch]
 ## 4.Spring Cloud
+  * [Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA)]
 ## 5.Spring Security
 ***
 # DevOps
