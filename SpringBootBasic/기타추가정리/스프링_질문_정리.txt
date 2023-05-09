@@ -1,0 +1,162 @@
+1. @RequiredArgsContructor
+final이 붙거나 @NotNull이 붙은 필드의 생성자를 자동으로 주입해주는것
+
+2. @NoArgsConstructor
+파라미터가 없는 기본 생성자를 생성
+
+3. @AllArgsConstructor
+모든 필드 값을 파라미터로 받는 생성자를 생성
+
+4. @RestController
+= @Controller + @ResponseBody
+@Responsebody 어노테이션을 사용하면 http요청 body를 자바 객체로 전달받을 수 있다.
+
+
+5. Builder 사용목적
+필드의 순서 상관없이 객체 생성
+원하는 필드만 파라미터로 객체 생성
+
+6. Builder 보다 좋은 방법?
+
+7. Bean
+Spring Ioc 컨테이너가 관리하는 자바 객체
+즉 Spring에서의 빈은 ApplicationContext가 알고있는 객체. 즉. ApplicationContext가 만들어서 그 안에 담고있는 객체
+
+8. 어떻게 Spring Ioc 컨테이너에 빈을 등록할까?
+- Component Scan
+- 빈설정파일에 빈등록
+
+9. @Component
+Spring에서 관리되는 객체임을 표시하기 위해 사용하는 가장 기본적인 annotation이다. 
+즉, scan-auto-detection과 dependency injection을 사용하기 위해서 사용되는 가장 기본 어노테이션이다.
+
+10. @Service
+비즈니스 로직이나 respository layer 호출하는 함수에 사용된다. 다른 어노테이션과 다르게 @Component에 추가된 기능은 없다. 
+하지만 나중에 Spring 측에서 추가적인 exception handling을 해줄 수도 있으니 비즈니스 로직에는 해당 어노테이션을 사용하자.
+
+
+11. 빌더가 아닌 정적 팩토리 메소드(static Factory Method) 왜 사용할까?
+정적 팩토리 메소드 : 직접적으로 생성자를 통해 객체를 생성하는 것이 아닌 메서드를 통해서 객체를 생성하는 것
+생성자가 아닌 왜 정적 팩토리 메소드를 따로 만들어서 객체를 생성하는 것일까?
+	1) 메소드 이름에 객체 생성 목적을 담아낼 수 있다
+		- 해당 생성의 목적을 이름에 표현할 수 있어 가독성이 좋아지는 효과
+	2) 호출할 때 마다 새로운 객체를 생성할 필요가 없다
+
+	3) 하위 자료형 객체를 반환
+※ 정적 팩토리 메서드 네이밍 컨밴션
+	from : 하나의 매개 변수를 받아서 객체를 생성
+	of : 여러개의 매개 변수를 받아서 객체를 생성
+	getInstance | instance : 인스턴스를 생성. 이전에 반환했던 것과 같을 수 있음.
+	newInstance | create : 새로운 인스턴스를 생성
+	get[OtherType] : 다른 타입의 인스턴스를 생성. 이전에 반환했던 것과 같을 수 있음.
+	new[OtherType] : 다른 타입의 새로운 인스턴스를 생성\
+
+12. JsonInclude
+objectMapper.setSerializationInclusion();
+위의 메소드를 통하여 Serialize할 때 원하는 값만을 포함시킬 수 있다.
+
+13. Qualifier
+동일한 타입을 가진 Bean 객체가 두개 있을때 사용
+
+14. @Order 어노테이션을 쓰면 빈의 순서를 지정할 수 있다. 
+
+15. OncePerRequestFilter 
+어느 서블릿 컨테이너에서나 사용자의 한번 요청당 한번만 실행을 보장하는 필터
+
+16. WebMvcConfigurer implements 를 해야하면 HandlerInterceptor을 사용할 수 있음
+.addnterceptor.addPathPatterens 를통해 특정경로에만 controller 가기전 (preHandler)과 후(postHandler)에 intercept 한다
+
+17. Filter -> DispatcherServlet -> Interceptor -> Controller
+
+18. RestTemplate?
+스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿
+HTTP 서버와의 통신을 단순화하고 RESTful 원칙을 지킨다.(json, xml을 쉽게 응답 받음)
+
+19. RestTemplate 동작원리
+1) 어플리케이션이 RestTemplate를 생성하고, URI, HTTP 메소드 등의 헤더를 담아 요청
+2) RestTemplate는 HttpMessageConverter를 사용하여 requestEntity를 요청 메세지로 변환
+3) RestTemplate는 ClientHttpRequestFactory로 부터 ClientHttpRequest를 가져와서 요청을 보냄
+4) ClientHttpRequest는 요청메세지를 만들어 HTTP 프로토콜을 통해 서버와 통신
+5) RestTemplate 는 ResponseErrorHandler 로 오류를 확인하고 있다면 처리로직을 태움
+6) ResponseErrorHandler 는 오류가 있다면 ClientHttpResponse 에서 응답데이터를 가져와서 처리
+7) RestTemplate 는 HttpMessageConverter 를 이용해서 응답메세지를 java object(Class responseType) 로 변환
+8) 어플리케이션 반환
+
+20. WebSecurityConfigurerAdapter
+스프링 시큐리티의 웹 보안 기능을 초기화 및 설정
+HttpSecurity 세부적인 보안 기능을 설정할 수 있는 API 제공
+사용자 정의 보안 기능을 구현하기 위해서 WebSecurityConfigureAdapter를 상속
+authorizeRequest() : 요청에 대한 보안 검사 시작
+
+21. WebMvcConfigurer
+spring web mvc 설정
+
+22. ResponseEntity란
+HttpEntity는 HTTP 요청(Request)또는 응답(Response)에 해당하는 HttpHeader와 HttpBody를 포함하는 클래스이다
+HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스 이다.
+ResponseEntity는 사용자의 HttpRequest에 대한 응답데이터를 포함하는 클래스이다.
+HttpStatus, HttpHeaders, HttpBody를 포함한다.
+
+23. JWT
+JWT란 Json객체를 사용해서 Token자체에 정보를 저장하고 있는 Web Token
+
+24. @JsonIgnore
+JSonIgnore을 붙이면 데이터를 주고 받을때 해당 데이터는 Ignore 되어서 아래의 결과창 처럼 응답값에 보이지 않게된다.
+
+25. AuthenticationEntryPoint, AccessDeniedHandler 
+- AuthenticationEntryPoint : 인증과정에서 실패하거나 인증헤더를 보내지 않게되는 경우 401(UnAuthorized)라는 응답값을 받게된다. 
+ 이를 처리해주는 로직이 바로 AuthenticationEntryPoint라는 인터페이스입니다.
+
+- AccessDeniedHandler : 인증과는 별개로 추가로 확인되는 권한에서 충족되지 않으면 403(Forbidden) 반환
+
+26. Spring AOP
+AOP(Aspect Oriented Programming)란? 관점 지향 프로그래밍이라 한다.
+Aspect(관점)이란 흩어진 관심사들을 하나로 모듈화 한것을 의미한다.
+스프링에서는 SRP(Single Responsibility Principle)에 따라 하나의 책임 만을 갖게 설계된다.
+하지만 클래스를 설계하다보면 로깅, 보안, 트랜잭션 등 여러 클래스에서 공통적으로 사용하는 부가 기능들이 생긴다.
+이들은 주요 비즈니스 로직은 아니지만, 반복적으로 여러곳에서 쓰이는데 이를 흩어진 관심사(Cross Cutting Concerns)라고 한다.
+
+AOP없이 흩어진 관심사를 처리하면 다음과 같은 문제가 발생한다.
+	- 여러 곳에서 반복적인 코드를 작성해야한다.
+	- 코드가 변경될 경우 여러 곳에 가서 수정이 필요하다.
+	- 주요 비즈니스 로직과 부가 기능이 한곳에 섞여 가독성이 떨어진다.
+
+따라서 흩어진 관심사를 별도의 클래스로 모듈화하여 위의 문제들을 해결하고, 결과적으로 OOP를 더욱 잘 지킬 수 있도록 도움을 주는 것이 AOP이다.
+
+	AOP의 주요 개념
+	- Aspect : Advice + PointCut으로 AOP의 기본 모듈
+	- Advice : Target에 제공할 부가 기능을 담고 있는 모듈
+	- Target : Advice이 부가 기능을 제공할 대상 (Advice가 적용될 비즈니스 로직)
+	- JointPoint : Advice가 적용될 위치
+		- 메서드 진입 시점, 생성자 호출 시점, 필드에서 값을 꺼내올 때 등 다양한 시점에서 적용 가능
+	- PointCut : Target을 지정하는 정규 표현식
+	
+	Spring AOP?
+	Spring Aop는 기본적으로 프록시 방식으로 동작한다. 프록시 패턴이란 어떤 객체를 사용하고자 할 때, 객체를 직접적으로 참조하는 것이 아니라, 해당 객체를 대행(proxy)하는
+	객체를 통해 대상객체에 접근하는 방식을 말한다.
+	
+	spring AOP는 왜 프록시 방식을 사용하는가?
+	프록시 객체 없이 Target 객체를 사용하고 있다고 생각해보자. Aspect 클래스에 정의된 부가 기능을 사용하기 위해서, 우리는 원하는 위치에서 직접 Aspect 클래스를 호출해야 한다.
+	이 경우 Target클래스 안에 부가 기능을 호출하는 로직이 포함되기 때문에, AOP를 적용하지 않았을 때와 동일한 문제가 발생한다.
+	여러 곳에서 반복적으로 Aspect를 호출해야 하고, 그로 인해 유지보수성이 크게 떨어진다. 그래서 "Spring에서는 Target 클래스 혹은 상위 인터페이스를 상속하는
+	프록시 클래스를 생성하고, 프록시 클래서에서 부가 기능에 관련된 처리를 한다." 이렇게 하면 Target에서 Aspect을 알 필요 없이 순수한 비즈니스 로직에 집중할 수 있다.
+
+27. Proxy 형태로 동작하는 @Transactional
+트랜잭션 처리를 위한 @Transactional 애노테이션은 Spring AOP의 대표적인 예이다.
+@Transactional 역시 Proxy 형태로 동작한다. 
+1. target에 대한 호출이 들어오면 AOP proxy가 이를 가로채서(intercept) 가져온다.
+2. AOP proxy에서 Transaction Advisor가 commit또는 rollback 등의 트랜잭션 처리를 한다.
+3. 트랜잭션 처리 외에 다른 부가 기능이 있을 경우 해당 Custom Advisor에서 그 처리를 한다.
+4. 각 Advisor에서 부가 기능 처리를 마치면 Target Method를 수행한다.
+5. Interceptor chain에 따라 caller에게 결과를 다시 전달한다.
+
+"결론"
+- AOP는 흩어진 관심사를 별도의 클래스로 모듈화하는 프로그래밍 방법을 말하며, OOP를 더욱 잘 지킬 수 있도록 도움을 준다.
+- Spring AOP는 프록시 객체를 자동으로 생성해주어, Aspect/Advice에 직접적으로 의존하지 않게 해준다.
+	- @Transactional도 Spring AOP중 하나로 프록시 방식으로 동작한다.
+	- 원본 클래스/인터페이스를 상속 받아 프록시를 생성하기 때문에 접근 제어가 private로 되어있으면 안된다.
+	- 객체 외부에서 처음으로 진입하는 메서드에 트랜잭션 처리가 되어있어야, 해당 요청을 프록시 객체가 대신 처리할 수 있다. 따라서 트랜잭션은 객체 외부에서
+	처음 진입하는 메서드를 기준으로 동작한다.
+
+	
+	
