@@ -107,6 +107,7 @@
 ### Part3. Infra
     - [About AWS]  
         - AWS Certified Cloud Practitiner 자격증 준비하기
+        - AWS Certified Solutions Architect 자격증 준비하기
         - 호돌맨의 요절복통 개발쇼(AWS)
     - [About Kafka]
 		- T아카데미 - 아파치 카프카 입문
