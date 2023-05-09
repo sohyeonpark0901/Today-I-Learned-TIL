@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    starter:
+      bootstrap:
+        enabled: true
+    config:
+      uri: http://127.0.0.1:8888
+      name: ecommerce

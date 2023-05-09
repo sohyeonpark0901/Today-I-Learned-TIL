@@ -1,0 +1,37 @@
+server:
+  port: 19070
+
+# Eureka
+eureka:
+
+  # Eureka Server
+  server:
+    enable-self-preservation: false                   # 자기보호 모드 활성화 여부 (true)
+    renewal-percent-threshold: 0.85                   # 임계 갱신 비율 값  (0.85)
+    renewal-threshold-update-interval-ms: 300000      # 임계값 하트비트 계산 주기 (15*60*1000 ms)
+    expected-client-renewal-interval-seconds: 5       # 하트비트 주기 (30 s)
+    eviction-interval-timer-in-ms: 10000              # 만료 클라이언트 제거 주기 (60*1000 ms)
+    response-cache-update-interval-ms: 2000           # 인스턴스 갱신 주기 (30000 ms)
+
+    # 자기보호 모드 : 하트비트 수신 수가 임계 값 미만으로 떨어졌을때 (단기간에 너무 많은 클라이언트를 잃었을때) 인스턴스 삭제 정지, 서비스 혹은 네트워크 복구시까지 상태 유지
+    # (60/expected-client-renewal-interval-seconds) = 분당 하트비트 수
+    # renewal-percent-threshold = 임계 갱신 비율 값
+    # if(실제 하트비트 < 분당 하트비트 수 * 인스턴스수 * 임계 갱신 비율 값) {자기보호 모드 실행}
+
+  # Eureka Client
+  client:
+    register-with-eureka: true                        # 유레카 서버에 등록여부 (true)
+    fetch-registry: false                             # 유레카 서버에서 정보 가져올지 여부 (true)
+    service-url:
+      defaultZone: http://192.168.0.16:19070/eureka/     # Eureka server 기본 주소
+
+  # Eureka Instance
+  instance:
+    hostname: localhost                               # 호스트 이름
+    prefer-ip-address: true                           # 유레카 서버에 응답시 OS제공 호스트 이름 대신 ip 사용 여부 (false)
+    lease-renewal-interval-in-seconds: 5             # 본 클라이언트의 하트비트 전송 주기 (30 s)
+    lease-expiration-duration-in-seconds: 30          # 본 클라이언트의 마지막 하트비트 후 인스턴스 등록해제 대기 시간 (90 s)
+    securePortEnabled: true                           # 트래픽에 대해 보안 포트를 활성화해야 하는지 여부를 나타냅니다. (false)
+    secure-port: 8761
+    non-secure-port-enabled: false 
+    instance-id: eureka:${server.port}
